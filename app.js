@@ -5,7 +5,7 @@ const app = express();
 const productRoutes = require('./api/routes/products');
 
 //all the url ending with /products, will be forward to productRoutes, which is product.js
-app.use('/products', productRoutes)
+app.use('/products', productRoutes);
 
 //don't need this anymore, we will use something else to set up the server
 
