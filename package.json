@@ -1,0 +1,22 @@
+{
+  "name": "product-list-rest",
+  "version": "1.0.0",
+  "description": "solely a practice of backend,server,and probably some frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannylu88/node-rest-shop.git"
+  },
+  "author": "Danny Lu with youtube Academind",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannylu88/node-rest-shop/issues"
+  },
+  "homepage": "https://github.com/dannylu88/node-rest-shop#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
