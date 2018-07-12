@@ -13,13 +13,13 @@ router.get('/', (request,response,next) =>{
 });
 
 router.post('/', (request,response,next) => {
-  response.status(200).json({
+  response.status(201).json({
     message:'Handling post request to /products'
   });
 });
 
 // '/:productId', will get the encode productId into the URL
-router.get('/:productId', (request,response,next)=>{
+router.get('/productId', (request,response,next)=>{
   const id = request.params.productId;
   if(id ==='special'){
   	response.status(200).json({
@@ -32,5 +32,17 @@ router.get('/:productId', (request,response,next)=>{
   	});
   }
 });
+
+router.patch('/:productId', (request, response, next) =>{
+  response.status(200).json({
+    message:'Updated product!'
+  });
+});
+
+router.delete('/:productId', (request, response, next) =>{
+	response.status(200).json({
+      message:'Deleted Product'
+	});
+})
 
 module.exports = router;
