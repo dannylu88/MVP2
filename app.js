@@ -7,13 +7,27 @@ const app = express();
 
 //allow to use request.body.
 const bodyParser = require('body-parser');
+
+const mongoose = require('mongoose');
                                               //no .js
 const productRoutes = require('./api/routes/products');
 
 const orderRoutes = require('./api/routes/orders');
 
 
-app.use(morgan('dev'));
+
+
+console.log('pass',process.env.MONGO_ATLAS_PW);  //encode handle special character $#%&*
+mongoose.connect('mongodb+srv://dannylu8:' + encodeURIComponent(process.env.MONGO_ATLAS_PW) + '@dannylu8-ycguh.mongodb.net/test?retryWrites=true',
+  // {
+  //   useMongoClient:true    //---> no longer needed for mongoose 5.0.x
+  // }
+  {
+  	useNewUrlParser: true
+  }
+);
+
+app.use(morgan('dev'));              //true can handle nested object
 app.use('/', bodyParser.urlencoded({extended:false}));
 app.use('/', bodyParser.json());
 
@@ -21,7 +35,7 @@ app.use('/', bodyParser.json());
 //normall you want to give *, everyone can access that's how internet work
 //if this doesn't exist, only same port can access our server
 app.use((request,response,next) =>{
-	                                        //* means everyone has access
+	                                        // * means everyone has access
 	                                        //or you can do http google.com, means only google have access
 	response.header('Access-Control-Allow-Origin', '*');
 	//which header send along with request
