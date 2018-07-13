@@ -1,7 +1,12 @@
 const express = require('express');
+
+//get access to next function then print the get/post... methods
 const morgan = require('morgan');
 
 const app = express();
+
+//allow to use request.body.
+const bodyParser = require('body-parser');
                                               //no .js
 const productRoutes = require('./api/routes/products');
 
@@ -9,6 +14,29 @@ const orderRoutes = require('./api/routes/orders');
 
 
 app.use(morgan('dev'));
+app.use('/', bodyParser.urlencoded({extended:false}));
+app.use('/', bodyParser.json());
+
+//handle Cross orgin problem, allow different ports to access server
+//normall you want to give *, everyone can access that's how internet work
+//if this doesn't exist, only same port can access our server
+app.use((request,response,next) =>{
+	                                        //* means everyone has access
+	                                        //or you can do http google.com, means only google have access
+	response.header('Access-Control-Allow-Origin', '*');
+	//which header send along with request
+	response.header('Access-Control-Allow-Headers', '*');
+
+    //Browser will always send OPTION method first, before GET or POST...
+	if(request.method === 'OPTION'){
+		               //only allow the following methods for the browers to send
+		               //those are the methods that we are going to use
+      response.header('Access-Control-Allow-Methods', 'PUT,POST,PATCH,DELETE,GET');
+      return response.status(200).json({});
+	}
+	//this next will allow to continue, without it, it will blocked the entire server from here
+	next();
+});
 
 
 //all the url ending with /products, will be forward to productRoutes, which is product.js

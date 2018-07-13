@@ -13,8 +13,14 @@ router.get('/', (request,response,next) =>{
 });
 
 router.post('/', (request,response,next) => {
+	const product = {
+	//body from body parser, name from API doc (they will tell you what you get from API)
+      name: request.body.name,
+      price: request.body.price
+	};
   response.status(201).json({
-    message:'Handling post request to /products'
+    message:'Handling post request to /products',
+    createdProduct: product
   });
 });
 
