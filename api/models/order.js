@@ -8,4 +8,4 @@ const orderSchema = mongoose.Schema({
 });
 
                      //this model is name schema, load schema name 'oderSchema'
-module.exports = mongoose.model('Order', orderSchema)
+module.exports = mongoose.model('Order', orderSchema);

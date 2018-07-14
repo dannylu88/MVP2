@@ -3,6 +3,8 @@ const express = require('express');
 //get access to next function then print the get/post... methods
 const morgan = require('morgan');
 
+const path = require('path');
+
 const app = express();
 
 //allow to use request.body.
@@ -11,8 +13,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
                                               //no .js
 const productRoutes = require('./api/routes/products');
-
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/users.js');
+
 
 
 
@@ -30,6 +33,8 @@ mongoose.connect('mongodb+srv://dannylu8:' + encodeURIComponent(process.env.MONG
 app.use(morgan('dev'));              //true can handle nested object
 app.use('/', bodyParser.urlencoded({extended:false}));
 app.use('/', bodyParser.json());
+
+app.use('/', express.static(path.join(__dirname, './public')));
 
 //handle Cross orgin problem, allow different ports to access server
 //normall you want to give *, everyone can access that's how internet work
@@ -56,6 +61,7 @@ app.use((request,response,next) =>{
 //all the url ending with /products, will be forward to productRoutes, which is product.js
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
 
 //handle 404 error
 app.use('/', (request, response ,next) => {
