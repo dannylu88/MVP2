@@ -71,18 +71,18 @@ router.post('/login', (request, response, next) =>{
           if(result){
           	//using token with jsonwebtoken
           	const token = jwt.sign(
-          	{
+          	  {
           		email: user[0].email,  //--> 1st variable
           		userId:user[0]._id
-          	}, 
-          	process.env.JWT_KEY,
-          	{
-          		expiresIn:"600000",
-          		token:token
+          	  }, 
+          	  process.env.JWT_KEY,
+          	  {
+          		expiresIn:"2h"
+          	  });
+          	return response.status(200).json({
+          	  message: 'Authorization successful',
+          	  token:token
           	});
-          	 return response.status(200).json({
-          	 	message: 'Authorization successful'
-          	 });
           }
           response.status(401).json({
             message:'Authorization failed'

@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 
 const Product = require('../models/product');
 
+const checkAuth = require('../middleware/authorize.js');
+
 //I want to only load or send the request to the product.js,
 //only targeting with /products url ending
 
@@ -31,7 +33,7 @@ router.get('/', (request,response,next) =>{
   // });
 });
 
-router.post('/', (request,response,next) => {
+router.post('/', checkAuth, (request,response,next) => {
 	// const product = {
 	// //body from body parser, name from API doc (they will tell you what you get from API)
  //      name: request.body.name,
