@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user.js');
 
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 
@@ -68,6 +69,17 @@ router.post('/login', (request, response, next) =>{
           	});
           }
           if(result){
+          	//using token with jsonwebtoken
+          	const token = jwt.sign(
+          	{
+          		email: user[0].email,  //--> 1st variable
+          		userId:user[0]._id
+          	}, 
+          	process.env.JWT_KEY,
+          	{
+          		expiresIn:"600000",
+          		token:token
+          	});
           	 return response.status(200).json({
           	 	message: 'Authorization successful'
           	 });
